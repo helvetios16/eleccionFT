@@ -6,16 +6,16 @@ const state = true;
 
 <BaseLayout pageTitle={pageTitle} state={state}>
     <h1
-        class="text-center pt-12 pb-8 mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
+        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
     >
         {pageTitle}
     </h1>
 
-    <form class="max-w-sm mx-auto">
+    <form class="max-w-sm mx-auto" id="form-login">
         <label
             for="email-address-icon"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Your Email</label
+            >Your User</label
         >
         <div class="relative">
             <div
@@ -23,24 +23,25 @@ const state = true;
             >
                 <svg
                     class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                    aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor"
-                    viewBox="0 0 20 16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
                 >
                     <path
-                        d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
-                    ></path>
-                    <path
-                        d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
                     ></path>
                 </svg>
             </div>
             <input
                 type="text"
-                id="email-address-icon"
+                id="user"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@gmail.com"
+                placeholder="User"
             />
         </div>
         <br />
@@ -54,27 +55,75 @@ const state = true;
                 class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
             >
                 <svg
-                    class="w-4 h-4 text-gray-800 dark:text-white"
+                    class="w-4 h-4 text-gray-500 dark:text-gray-400"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
-                    fill="none"
-                    viewBox="0 0 20 16"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
                 >
                     <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-width="2"
-                        d="M5 7h14M5 12h14M5 17h14"></path>
+                        d="M11 21V2.352A3.451 3.451 0 0 0 9.5 2a3.5 3.5 0 0 0-3.261 2.238A3.5 3.5 0 0 0 4.04 8.015a3.518 3.518 0 0 0-.766 1.128c-.042.1-.064.209-.1.313a3.34 3.34 0 0 0-.106.344 3.463 3.463 0 0 0 .02 1.468A4.017 4.017 0 0 0 2.3 12.5l-.015.036a3.861 3.861 0 0 0-.216.779A3.968 3.968 0 0 0 2 14c.003.24.027.48.072.716a4 4 0 0 0 .235.832c.006.014.015.027.021.041a3.85 3.85 0 0 0 .417.727c.105.146.219.285.342.415.072.076.148.146.225.216.1.091.205.179.315.26.11.081.2.14.308.2.02.013.039.028.059.04v.053a3.506 3.506 0 0 0 3.03 3.469 3.426 3.426 0 0 0 4.154.577A.972.972 0 0 1 11 21Zm10.934-7.68a3.956 3.956 0 0 0-.215-.779l-.017-.038a4.016 4.016 0 0 0-.79-1.235 3.417 3.417 0 0 0 .017-1.468 3.387 3.387 0 0 0-.1-.333c-.034-.108-.057-.22-.1-.324a3.517 3.517 0 0 0-.766-1.128 3.5 3.5 0 0 0-2.202-3.777A3.5 3.5 0 0 0 14.5 2a3.451 3.451 0 0 0-1.5.352V21a.972.972 0 0 1-.184.546 3.426 3.426 0 0 0 4.154-.577A3.506 3.506 0 0 0 20 17.5v-.049c.02-.012.039-.027.059-.04.106-.064.208-.13.308-.2s.214-.169.315-.26c.077-.07.153-.14.225-.216a4.007 4.007 0 0 0 .459-.588c.115-.176.215-.361.3-.554.006-.014.015-.027.021-.041.087-.213.156-.434.205-.659.013-.057.024-.115.035-.173.046-.237.07-.478.073-.72a3.948 3.948 0 0 0-.066-.68Z"
+                    ></path>
                 </svg>
             </div>
             <input
-                type="text"
-                id="email-address-icon"
+                type="password"
+                id="password"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="name@gmail.com"
+                placeholder="********"
             />
         </div>
+        <br />
+        <br />
+        <div class="flex justify-center">
+            <button
+                type="submit"
+                class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800"
+            >
+                <span
+                    class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0"
+                >
+                    {pageTitle}
+                </span>
+            </button>
+        </div>
     </form>
+    <script>
+        const submitForm = async (event) => {
+            event.preventDefault();
+
+            const user = event.target.elements.user.value;
+            const password = event.target.elements.password.value;
+
+            const formData = new URLSearchParams();
+            formData.append("grant_type", "password");
+            formData.append("username", user);
+            formData.append("password", password);
+            formData.append("scope", "");
+            formData.append("client_id", "");
+            formData.append("client_secret", "");
+
+            const response = await fetch("http://localhost:8000/login/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: formData,
+            });
+
+            if (response.ok) {
+                console.log("Login successful");
+            } else {
+                const errorData = await response.json();
+                console.error("Login failed:", errorData);
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("form-login");
+            form.addEventListener("submit", submitForm);
+        });
+    </script>
 </BaseLayout>/>
