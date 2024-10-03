@@ -26,14 +26,14 @@ const state = true;
             <InputForm
                 nameLabel="Paternal name"
                 inputType="text"
-                inputId="paternal-name"
+                inputId="paternalName"
                 inputPlaceholder="Doe"
             />
             <!-- poner una reglas de agregar un br cuando se cambie a modo movil -->
             <InputForm
                 nameLabel="Maternal name"
                 inputType="text"
-                inputId="maternal-name"
+                inputId="maternalName"
                 inputPlaceholder="Appleseed"
             />
         </div>
@@ -70,5 +70,52 @@ const state = true;
         <div class="flex justify-center">
             <ButtonForm textButton={pageTitle} />
         </div>
+        <script>
+            const submitForm = async (event) => {
+                event.preventDefault();
+
+                const form = event.target;
+                const name = form.elements.name.value;
+                const paternalName = form.elements.paternalName.value;
+                const maternalName = form.elements.maternalName.value;
+                const user = form.elements.user.value;
+                const password = form.elements.password.value;
+
+                const data = {
+                    nombres: name,
+                    apellido_paterno: paternalName,
+                    apellido_materno: maternalName,
+                    usuario: user,
+                    password: password,
+                };
+
+                try {
+                    const response = await fetch(
+                        "http://localhost:8000/elector/",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(data),
+                        },
+                    );
+
+                    if (response.ok) {
+                        console.log("Registration successful");
+                        form.reset();
+                    } else {
+                        const errorData = await response.json();
+                        console.error("Registration failed:", errorData);
+                    }
+                } catch (error) {
+                    console.error("An error occurred:", error);
+                }
+            };
+            document.addEventListener("DOMContentLoaded", () => {
+                const form = document.getElementById("form-register");
+                form.addEventListener("submit", submitForm);
+            });
+        </script>
     </form>
 </BaseLayout>
