@@ -1,0 +1,112 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InputForm from "../components/InputForm.astro";
+
+const pageTitle = "Registrarse";
+const state = true;
+---
+
+<BaseLayout pageTitle={pageTitle} state={state}>
+    <h1
+        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+    >
+        {pageTitle}
+    </h1>
+
+    <form class="max-w-sm mx-auto" id="form-register">
+        <InputForm
+            nameLabel="Name"
+            inputType="text"
+            inputId="name"
+            inputPlaceholder="John"
+        />
+        <br />
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="relative z-0 w-full mb-5 group">
+                <label
+                    for="paternal-name-icon"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Paternal name</label
+                >
+                <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                    <!-- svg -->
+                </div>
+                <input
+                    type="text"
+                    id="paternal-name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Doe"
+                    required
+                />
+            </div>
+            <div class="relative z-0 w-full mb-5 group">
+                <label
+                    for="paternal-name-icon"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Maternal name</label
+                >
+                <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                    <!-- svg -->
+                </div>
+                <input
+                    type="text"
+                    id="paternal-name"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Appleseed"
+                    required
+                />
+            </div>
+        </div>
+    </form>
+</BaseLayout>
+
+<!-- Fecha de Nacimiento -->
+<div class="form-group">
+    <label for="inputFechaNacimiento">Fecha de Nacimiento</label>
+    <input
+        type="date"
+        class="form-control"
+        id="inputFechaNacimiento"
+        name="fecha_nacimiento"
+        required
+    />
+</div>
+<!-- Usuario -->
+<div class="form-group">
+    <label for="inputUsuario">Usuario</label>
+    <input
+        type="text"
+        class="form-control"
+        id="inputUsuario"
+        name="usuario"
+        required
+    />
+</div>
+<!-- Correo -->
+<div class="form-group">
+    <label for="inputCorreo">Correo</label>
+    <input
+        type="email"
+        class="form-control"
+        id="inputCorreo"
+        name="correo"
+        required
+    />
+</div>
+<!-- Contraseña -->
+<div class="form-group">
+    <label for="inputContrasena">Contraseña</label>
+    <input
+        type="password"
+        class="form-control"
+        id="inputContrasena"
+        name="contrasena"
+        required
+    />
+</div>
+<!-- Botón de registro -->
+<button type="submit" class="btn btn-success">Registrarse</button>
