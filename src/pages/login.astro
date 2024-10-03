@@ -94,8 +94,9 @@ const state = true;
         const submitForm = async (event) => {
             event.preventDefault();
 
-            const user = event.target.elements.user.value;
-            const password = event.target.elements.password.value;
+            const form = event.target;
+            const user = form.elements.user.value;
+            const password = form.elements.password.value;
 
             const formData = new URLSearchParams();
             formData.append("grant_type", "password");
@@ -105,19 +106,24 @@ const state = true;
             formData.append("client_id", "");
             formData.append("client_secret", "");
 
-            const response = await fetch("http://localhost:8000/login/", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                },
-                body: formData,
-            });
+            try {
+                const response = await fetch("http://localhost:8000/login/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                    },
+                    body: formData,
+                });
 
-            if (response.ok) {
-                console.log("Login successful");
-            } else {
-                const errorData = await response.json();
-                console.error("Login failed:", errorData);
+                if (response.ok) {
+                    console.log("Login successful");
+                    form.reset();
+                } else {
+                    const errorData = await response.json();
+                    console.error("Login failed:", errorData);
+                }
+            } catch (error) {
+                console.error("An error occurred:", error);
             }
         };
 
