@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Home";
+const state = false;
+---
+
+<BaseLayout pageTitle={pageTitle} state={state}>
+    <h1
+        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+    >
+        {pageTitle}
+    </h1>
+    <p
+        id="access-info"
+        class="text-center text-lg text-gray-800 dark:text-white"
+    >
+        Cargando información...
+    </p>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = sessionStorage.getItem("access_token");
+            if (!token) {
+                window.location.href = "/login";
+            } else {
+                const accessInfoElement =
+                    document.getElementById("access-info");
+                const maskedToken = token.slice(0, 10) + "...";
+                accessInfoElement.textContent = `Access Token: ${maskedToken}`;
+            }
+        });
+    </script>
+</BaseLayout>

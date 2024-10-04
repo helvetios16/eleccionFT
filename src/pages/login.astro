@@ -63,8 +63,15 @@ const state = true;
                     );
 
                     if (response.ok) {
-                        console.log("Login successful");
+                        const responseData = await response.json();
+                        // console.log("Login successful:", responseData);
+
+                        sessionStorage.setItem(
+                            "access_token",
+                            responseData.access_token,
+                        );
                         form.reset();
+                        window.location.href = "/home";
                     } else {
                         const errorData = await response.json();
                         console.error("Login failed:", errorData);
