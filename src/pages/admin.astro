@@ -1,0 +1,127 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const pageTitle = "Dashboard";
+const state = true;
+---
+
+<BaseLayout pageTitle={pageTitle} state={state}>
+    <h1
+        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+    >
+        {pageTitle}
+    </h1>
+    <br />
+    <div class="flex justify-center items-start min-h-screen space-x-4">
+        <!-- Lista de botones -->
+        <ul
+            class="flex flex-col space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400"
+        >
+            <li>
+                <button
+                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                    data-tab="listCandit"
+                >
+                    Lista de Candidatos
+                </button>
+            </li>
+            <li>
+                <button
+                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                    data-tab="seeElections"
+                >
+                    Ver Elecciones
+                </button>
+            </li>
+            <li>
+                <button
+                    class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    Ver Candidatos
+                </button>
+            </li>
+            <li>
+                <button
+                    class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    Ver Votos
+                </button>
+            </li>
+            <li>
+                <button
+                    class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    Mostrar Elecciones
+                </button>
+            </li>
+            <li>
+                <button
+                    class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    Crear Elecciones
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenido de la pestaña -->
+        <div
+            class="p-6 bg-gray-50 text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-3/4"
+        >
+            <div id="default" class="tabcontent">
+                <h3
+                    class="text-lg font-bold text-gray-900 dark:text-white mb-2"
+                >
+                    Profile Tab
+                </h3>
+                <p class="mb-2">
+                    This is some placeholder content the Profile tab's
+                    associated content, clicking another tab will toggle the
+                    visibility of this one for the next.
+                </p>
+                <p>
+                    The tab JavaScript swaps classes to control the content
+                    visibility and styling.
+                </p>
+            </div>
+            <div id="listCandit" class="tabcontent hidden">
+                <h1 class="text-gray-100">hola</h1>
+            </div>
+            <div id="seeElections" class="tabcontent hidden">
+                <h1 class="text-gray-100">eleccioens</h1>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tabButtons = document.querySelectorAll(".tablinks");
+
+            tabButtons.forEach((button) => {
+                button.addEventListener("click", function () {
+                    const tabName = this.getAttribute("data-tab");
+                    openTab(tabName);
+                });
+            });
+        });
+
+        function openTab(tabName) {
+            var tabcontent = document.getElementsByClassName("tabcontent");
+            for (var i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.add("hidden");
+            }
+
+            var tablinks = document.getElementsByClassName("tablinks");
+            for (var i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.remove("hidden");
+            // Optionally, add active class to the button
+            const activeButton = Array.from(tablinks).find(
+                (link) => link.getAttribute("data-tab") === tabName,
+            );
+            if (activeButton) {
+                activeButton.classList.add("focus:outline-none");
+            }
+        }
+    </script>
+</BaseLayout>

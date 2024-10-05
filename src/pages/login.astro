@@ -64,20 +64,71 @@ const state = true;
 
                     if (response.ok) {
                         const responseData = await response.json();
-                        // console.log("Login successful:", responseData);
+                        console.log("Login successful");
 
-                        sessionStorage.setItem(
-                            "access_token",
+                        // sessionStorage.setItem(
+                        //     "access_token",
+                        //     responseData.access_token,
+                        // );
+                        form.reset();
+                        const userData = await getCurrentUser(
                             responseData.access_token,
                         );
-                        form.reset();
-                        window.location.href = "/home";
+
+                        if (userData) {
+                            console.log("Current User:", userData);
+                            // You can now use userData.id as needed
+                            if (userData.type_user === "elector") {
+                                sessionStorage.setItem("idUser", userData.id);
+                                window.location.href = "/home";
+                            } else {
+                                window.location.href = "/admin";
+                            }
+                        }
+
+                        // window.location.href = "/home";
                     } else {
                         const errorData = await response.json();
                         console.error("Login failed:", errorData);
                     }
                 } catch (error) {
                     console.error("An error occurred:", error);
+                }
+            };
+
+            const getCurrentUser = async (token) => {
+                try {
+                    const response = await fetch(
+                        `http://localhost:8000/login/?token=${token}`,
+                        {
+                            method: "GET",
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                                Accept: "application/json",
+                            },
+                        },
+                    );
+
+                    if (response.ok) {
+                        return response.json();
+                        // const userData = await response.json();
+                        // console.log("Current User ID:", userData.id);
+                        // console.log("Current User:", userData);
+                        // You can now use userData.id as needed
+                    } else {
+                        const errorData = await response.json();
+                        console.error(
+                            "Failed to fetch current user:",
+                            errorData,
+                        );
+                        return null;
+                    }
+                } catch (error) {
+                    console.error(
+                        "An error occurred while fetching the current user:",
+                        error,
+                    );
+                    return null;
                 }
             };
 
