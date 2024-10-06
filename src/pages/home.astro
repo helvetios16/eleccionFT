@@ -11,24 +11,46 @@ const state = false;
     >
         {pageTitle}
     </h1>
-    <p
-        id="access-info"
-        class="text-center text-lg text-gray-800 dark:text-white"
+    <div
+        class="w-full max-w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
     >
-        Cargando información...
-    </p>
+        <div class="flex flex-col items-center mb-4 mt-4">
+            <svg
+                class="w-12 h-12 text-gray-500 dark:text-gray-400 mb-2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                ></path>
+            </svg>
+
+            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+                Jhon
+            </h5>
+            <span class="text-sm text-gray-500 dark:text-gray-400"
+                >Doe Aplassed</span
+            >
+        </div>
+    </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const token = sessionStorage.getItem("access_token");
-            if (!token) {
-                window.location.href = "/login";
-            } else {
-                const accessInfoElement =
-                    document.getElementById("access-info");
-                const maskedToken = token.slice(0, 10) + "...";
-                accessInfoElement.textContent = `Access Token: ${maskedToken}`;
+        const userInfo = JSON.parse(sessionStorage.getItem("userInfo")); // Obtener la información del usuario de sessionStorage
+        // console.log("Elector ID:", userInfo); // Asegúrate de que el ID es correcto
+
+        const electorData = async () => {
+            if (!userInfo) {
+                window.location.href = "/login"; // Redirigir a la página de inicio de sesión si no hay datos
             }
-        });
+            console.log("Elector data:", userInfo);
+        };
+
+        electorData();
     </script>
 </BaseLayout>

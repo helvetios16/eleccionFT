@@ -75,11 +75,20 @@ const state = true;
                             responseData.access_token,
                         );
 
+                        // console.log("Current User:", userData.persona);
+
                         if (userData) {
-                            console.log("Current User:", userData);
+                            // console.log("Current User:", userData);
                             // You can now use userData.id as needed
+                            sessionStorage.setItem(
+                                "token",
+                                responseData.access_token,
+                            );
                             if (userData.type_user === "elector") {
-                                sessionStorage.setItem("idUser", userData.id);
+                                sessionStorage.setItem(
+                                    "userInfo",
+                                    JSON.stringify(userData),
+                                );
                                 window.location.href = "/home";
                             } else {
                                 window.location.href = "/admin";
