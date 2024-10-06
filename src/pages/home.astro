@@ -31,11 +31,14 @@ const state = false;
                 ></path>
             </svg>
 
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">
-                Jhon
+            <h5
+                id="name"
+                class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+            >
+                Load ...
             </h5>
-            <span class="text-sm text-gray-500 dark:text-gray-400"
-                >Doe Aplassed</span
+            <span id="surnames" class="text-sm text-gray-500 dark:text-gray-400"
+                >Load ...</span
             >
         </div>
     </div>
@@ -48,7 +51,13 @@ const state = false;
             if (!userInfo) {
                 window.location.href = "/login"; // Redirigir a la página de inicio de sesión si no hay datos
             }
-            console.log("Elector data:", userInfo);
+            // console.log("Elector data:", userInfo);
+            document.getElementById("name").textContent =
+                userInfo.persona.nombres;
+            document.getElementById("surnames").textContent =
+                userInfo.persona.apellido_paterno +
+                " " +
+                userInfo.persona.apellido_materno;
         };
 
         electorData();
