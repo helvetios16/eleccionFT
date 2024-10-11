@@ -84,11 +84,11 @@ const state = true;
                                 "token",
                                 responseData.access_token,
                             );
+                            sessionStorage.setItem(
+                                "userInfo",
+                                JSON.stringify(userData),
+                            );
                             if (userData.type_user === "elector") {
-                                sessionStorage.setItem(
-                                    "userInfo",
-                                    JSON.stringify(userData),
-                                );
                                 window.location.href = "/home";
                             } else {
                                 window.location.href = "/admin";
