@@ -2,149 +2,36 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import InputForm from "../components/InputForm.astro";
 import ButtonForm from "../components/ButtonForm.astro";
-
 const pageTitle = "Iniciar sesión";
 const state = true;
 ---
 
 <BaseLayout pageTitle={pageTitle} state={state}>
-    <h1
-        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
-    >
-        {pageTitle}
-    </h1>
+  <h1
+    class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+  >
+    {pageTitle}
+  </h1>
 
-    <form class="max-w-sm mx-auto" id="form-login">
-        <InputForm
-            nameLabel="Your User"
-            inputType="text"
-            inputId="user"
-            inputPlaceholder="User"
-        />
-        <br />
-        <InputForm
-            nameLabel="Your Password"
-            inputType="password"
-            inputId="password"
-            inputPlaceholder="********"
-        />
-        <br />
-        <br />
-        <div class="flex justify-center">
-            <ButtonForm textButton={pageTitle} />
-        </div>
-        <script>
-            const submitForm = async (event) => {
-                event.preventDefault();
-
-                const form = event.target;
-                const user = form.elements.user.value;
-                const password = form.elements.password.value;
-
-                const formData = new URLSearchParams();
-                formData.append("grant_type", "password");
-                formData.append("username", user);
-                formData.append("password", password);
-                formData.append("scope", "");
-                formData.append("client_id", "");
-                formData.append("client_secret", "");
-
-                try {
-                    const response = await fetch(
-                        "http://localhost:8000/login/",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type":
-                                    "application/x-www-form-urlencoded",
-                            },
-                            body: formData,
-                        },
-                    );
-
-                    if (response.ok) {
-                        const responseData = await response.json();
-                        console.log("Login successful");
-
-                        // sessionStorage.setItem(
-                        //     "access_token",
-                        //     responseData.access_token,
-                        // );
-                        form.reset();
-                        const userData = await getCurrentUser(
-                            responseData.access_token,
-                        );
-
-                        // console.log("Current User:", userData.persona);
-
-                        if (userData) {
-                            // console.log("Current User:", userData);
-                            // You can now use userData.id as needed
-                            sessionStorage.setItem(
-                                "token",
-                                responseData.access_token,
-                            );
-                            sessionStorage.setItem(
-                                "userInfo",
-                                JSON.stringify(userData),
-                            );
-                            if (userData.type_user === "elector") {
-                                window.location.href = "/home";
-                            } else {
-                                window.location.href = "/admin";
-                            }
-                        }
-
-                        // window.location.href = "/home";
-                    } else {
-                        const errorData = await response.json();
-                        console.error("Login failed:", errorData);
-                    }
-                } catch (error) {
-                    console.error("An error occurred:", error);
-                }
-            };
-
-            const getCurrentUser = async (token) => {
-                try {
-                    const response = await fetch(
-                        `http://localhost:8000/login/?token=${token}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                                Accept: "application/json",
-                            },
-                        },
-                    );
-
-                    if (response.ok) {
-                        return response.json();
-                        // const userData = await response.json();
-                        // console.log("Current User ID:", userData.id);
-                        // console.log("Current User:", userData);
-                        // You can now use userData.id as needed
-                    } else {
-                        const errorData = await response.json();
-                        console.error(
-                            "Failed to fetch current user:",
-                            errorData,
-                        );
-                        return null;
-                    }
-                } catch (error) {
-                    console.error(
-                        "An error occurred while fetching the current user:",
-                        error,
-                    );
-                    return null;
-                }
-            };
-
-            document.addEventListener("DOMContentLoaded", () => {
-                const form = document.getElementById("form-login");
-                form.addEventListener("submit", submitForm);
-            });
-        </script>
-    </form>/>
+  <form class="max-w-sm mx-auto" id="form-login">
+    <InputForm
+      nameLabel="Your User"
+      inputType="text"
+      inputId="user"
+      inputPlaceholder="User"
+    />
+    <br />
+    <InputForm
+      nameLabel="Your Password"
+      inputType="password"
+      inputId="password"
+      inputPlaceholder="********"
+    />
+    <br />
+    <br />
+    <div class="flex justify-center">
+      <ButtonForm textButton={pageTitle} />
+    </div>
+    <script src="../scripts/login.js"></script>
+  </form>
 </BaseLayout>
