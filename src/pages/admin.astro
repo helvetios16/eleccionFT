@@ -5,33 +5,33 @@ const pageTitle = "Dashboard";
 const state = true;
 
 const getCandidates = async () => {
-    const response = await fetch("http://localhost:8000/candidato/", {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-        },
-    });
+  const response = await fetch("http://localhost:8000/candidato/", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
 
-    if (response.ok) {
-        return await response.json();
-    } else {
-        return [];
-    }
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return [];
+  }
 };
 
 const getListas = async () => {
-    const response = await fetch("http://localhost:8000/lista/", {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-        },
-    });
+  const response = await fetch("http://localhost:8000/lista/", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+    },
+  });
 
-    if (response.ok) {
-        return await response.json();
-    } else {
-        return [];
-    }
+  if (response.ok) {
+    return await response.json();
+  } else {
+    return [];
+  }
 };
 
 const candidates = await getCandidates();
@@ -39,271 +39,233 @@ const listas = await getListas();
 ---
 
 <BaseLayout pageTitle={pageTitle} state={state}>
-    <h1
-        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+  <h1
+    class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+  >
+    {pageTitle}
+  </h1>
+  <br />
+  <div class="flex justify-center items-start min-h-screen space-x-4">
+    <!-- Lista de botones -->
+    <ul
+      class="flex flex-col space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400"
     >
-        {pageTitle}
-    </h1>
-    <br />
-    <div class="flex justify-center items-start min-h-screen space-x-4">
-        <!-- Lista de botones -->
-        <ul
-            class="flex flex-col space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400"
+      <li>
+        <button
+          class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          data-tab="listCandit"
         >
-            <li>
-                <button
-                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
-                    data-tab="listCandit"
-                >
-                    Candidatos
-                </button>
-            </li>
-            <li>
-                <button
-                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
-                    data-tab="seeElections"
-                >
-                    Elecciones
-                </button>
-            </li>
-            <li>
-                <button
-                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
-                    data-tab="seeList"
-                >
-                    Listas
-                </button>
-            </li>
-            <li>
-                <button
-                    class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
-                    data-tab="seeVote"
-                >
-                    Votos
-                </button>
-            </li>
-            <li>
-                <!-- <button
+          Candidatos
+        </button>
+      </li>
+      <li>
+        <button
+          class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          data-tab="seeElections"
+        >
+          Elecciones
+        </button>
+      </li>
+      <li>
+        <button
+          class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          data-tab="seeList"
+        >
+          Listas
+        </button>
+      </li>
+      <li>
+        <button
+          class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          data-tab="seeVote"
+        >
+          Votos
+        </button>
+      </li>
+      <li>
+        <!-- <button
                     class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
                 >
                     Crear elecciones
                 </button> -->
-            </li>
-        </ul>
+      </li>
+    </ul>
 
-        <!-- Contenido de la pestaña -->
-        <div
-            class="p-6 bg-gray-50 text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-3/4"
+    <!-- Contenido de la pestaña -->
+    <div
+      class="p-6 bg-gray-50 text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-3/4"
+    >
+      <div id="default" class="tabcontent">
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">
+          Profile Tab
+        </h3>
+        <p class="mb-2">
+          This is some placeholder content the Profile tab's associated content,
+          clicking another tab will toggle the visibility of this one for the
+          next.
+        </p>
+        <p>
+          The tab JavaScript swaps classes to control the content visibility and
+          styling.
+        </p>
+      </div>
+      <div
+        id="listCandit"
+        class="tabcontent hidden relative overflow-x-auto shadow-md sm:rounded-lg"
+      >
+        <table
+          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
         >
-            <div id="default" class="tabcontent">
-                <h3
-                    class="text-lg font-bold text-gray-900 dark:text-white mb-2"
-                >
-                    Profile Tab
-                </h3>
-                <p class="mb-2">
-                    This is some placeholder content the Profile tab's
-                    associated content, clicking another tab will toggle the
-                    visibility of this one for the next.
-                </p>
-                <p>
-                    The tab JavaScript swaps classes to control the content
-                    visibility and styling.
-                </p>
-            </div>
-            <div
-                id="listCandit"
-                class="tabcontent hidden relative overflow-x-auto shadow-md sm:rounded-lg"
-            >
-                <table
-                    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                >
-                    <thead
-                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                    >
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Nombres</th>
-                            <th scope="col" class="px-6 py-3"
-                                >Apellido Paterno</th
-                            >
-                            <th scope="col" class="px-6 py-3"
-                                >Apellido Materno</th
-                            >
-                            <th scope="col" class="px-6 py-3"
-                                >Nombre de la Lista</th
-                            >
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            candidates.length > 0 ? (
-                                candidates.map((candidate) => (
-                                    // Pasa key como una prop separada y no dentro del objeto props
-                                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                        <td class="px-6 py-4">
-                                            {candidate.candidato.nombres}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {
-                                                candidate.candidato
-                                                    .apellido_paterno
-                                            }
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {
-                                                candidate.candidato
-                                                    .apellido_materno
-                                            }
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {candidate.nombre_lista}
-                                        </td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colspan="4">
-                                        No hay candidatos disponibles.
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div id="seeElections" class="tabcontent hidden">
-                <h1 class="text-gray-100">
-                    Ver elecciones en general, finalizadas, activas, programadas
-                    (hacer un filtro)
-                </h1>
-            </div>
-            <div
-                id="seeList"
-                class="tabcontent hidden relative overflow-x-auto shadow-md sm:rounded-lg"
-            >
-                <table
-                    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                >
-                    <thead
-                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                    >
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Nombre</th>
-                            <th scope="col" class="px-6 py-3">Eleccion ID</th>
-                            <th scope="col" class="px-6 py-3">Propuesta</th>
-                            <th scope="col" class="px-6 py-3">ID</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            listas.length > 0 ? (
-                                listas.map((lista) => (
-                                    // Pasa key como una prop separada y no dentro del objeto props
-                                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                        <td class="px-6 py-4">
-                                            {lista.nombre}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {lista.id_eleccion}
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            {lista.propuesta}
-                                        </td>
-                                        <td class="px-6 py-4">{lista.id}</td>
-                                    </tr>
-                                ))
-                            ) : (
-                                <tr>
-                                    <td colspan="4">
-                                        No hay candidatos disponibles.
-                                    </td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
-            <div id="seeVote" class="tabcontent hidden">
-                <h1 class="text-gray-100">Ver votos</h1>
-            </div>
-        </div>
-    </div>
-    <script>
-        const userData = JSON.parse(sessionStorage.getItem("userInfo"));
-
-        const adminConfirm = async () => {
-            if (userData.type_user !== "admin") {
-                window.location.href = "/login";
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Nombres</th>
+              <th scope="col" class="px-6 py-3">Apellido Paterno</th>
+              <th scope="col" class="px-6 py-3">Apellido Materno</th>
+              <th scope="col" class="px-6 py-3">Nombre de la Lista</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              candidates.length > 0 ? (
+                candidates.map((candidate) => (
+                  // Pasa key como una prop separada y no dentro del objeto props
+                  <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <td class="px-6 py-4">{candidate.candidato.nombres}</td>
+                    <td class="px-6 py-4">
+                      {candidate.candidato.apellido_paterno}
+                    </td>
+                    <td class="px-6 py-4">
+                      {candidate.candidato.apellido_materno}
+                    </td>
+                    <td class="px-6 py-4">{candidate.nombre_lista}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colspan="4">No hay candidatos disponibles.</td>
+                </tr>
+              )
             }
-            // console.log("Admin data:", userData);
-        };
+          </tbody>
+        </table>
+      </div>
+      <div id="seeElections" class="tabcontent hidden">
+        <h1 class="text-gray-100">
+          Ver elecciones en general, finalizadas, activas, programadas (hacer un
+          filtro)
+        </h1>
+      </div>
+      <div
+        id="seeList"
+        class="tabcontent hidden relative overflow-x-auto shadow-md sm:rounded-lg"
+      >
+        <table
+          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Nombre</th>
+              <th scope="col" class="px-6 py-3">Eleccion ID</th>
+              <th scope="col" class="px-6 py-3">Propuesta</th>
+              <th scope="col" class="px-6 py-3">ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              listas.length > 0 ? (
+                listas.map((lista) => (
+                  // Pasa key como una prop separada y no dentro del objeto props
+                  <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <td class="px-6 py-4">{lista.nombre}</td>
+                    <td class="px-6 py-4">{lista.id_eleccion}</td>
+                    <td class="px-6 py-4">{lista.propuesta}</td>
+                    <td class="px-6 py-4">{lista.id}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colspan="4">No hay candidatos disponibles.</td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
+      </div>
+      <div id="seeVote" class="tabcontent hidden">
+        <h1 class="text-gray-100">Ver votos</h1>
+      </div>
+    </div>
+  </div>
+  <script>
+    const userData = JSON.parse(sessionStorage.getItem("userInfo"));
 
-        adminConfirm();
+    const adminConfirm = async () => {
+      if (userData.type_user !== "admin") {
+        window.location.href = "/login";
+      }
+      // console.log("Admin data:", userData);
+    };
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const tabButtons = document.querySelectorAll(".tablinks");
+    adminConfirm();
 
-            tabButtons.forEach((button) => {
-                button.addEventListener("click", function () {
-                    const tabName = this.getAttribute("data-tab");
-                    openTab(tabName);
-                });
-            });
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabButtons = document.querySelectorAll(".tablinks");
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const tabName = this.getAttribute("data-tab");
+          openTab(tabName);
+        });
+      });
+    });
+
+    function openTab(tabName) {
+      var tabcontent = document.getElementsByClassName("tabcontent");
+      for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.add("hidden");
+      }
+
+      var tablinks = document.getElementsByClassName("tablinks");
+      for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+
+      document.getElementById(tabName).classList.remove("hidden");
+      // Optionally, add active class to the button
+      const activeButton = Array.from(tablinks).find(
+        (link) => link.getAttribute("data-tab") === tabName,
+      );
+      if (activeButton) {
+        activeButton.classList.add("focus:outline-none");
+      }
+    }
+
+    const getElections = async () => {
+      const token = sessionStorage.getItem("token"); // Asegúrate de tener el token en sessionStorage
+      try {
+        const response = await fetch("http://localhost:8000/eleccion/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Agrega el token en los headers
+            Accept: "application/json",
+          },
         });
 
-        function openTab(tabName) {
-            var tabcontent = document.getElementsByClassName("tabcontent");
-            for (var i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.add("hidden");
-            }
-
-            var tablinks = document.getElementsByClassName("tablinks");
-            for (var i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-
-            document.getElementById(tabName).classList.remove("hidden");
-            // Optionally, add active class to the button
-            const activeButton = Array.from(tablinks).find(
-                (link) => link.getAttribute("data-tab") === tabName,
-            );
-            if (activeButton) {
-                activeButton.classList.add("focus:outline-none");
-            }
+        if (response.ok) {
+          const electionsData = await response.json(); // Convierte la respuesta a JSON
+          console.log("Elections:", electionsData); // Muestra los datos en la consola
+        } else {
+          console.error("Failed to fetch elections:", response.statusText);
         }
+      } catch (error) {
+        console.error("Error occurred while fetching elections:", error);
+      }
+    };
 
-        const getElections = async () => {
-            const token = sessionStorage.getItem("token"); // Asegúrate de tener el token en sessionStorage
-            try {
-                const response = await fetch(
-                    "http://localhost:8000/eleccion/",
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${token}`, // Agrega el token en los headers
-                            Accept: "application/json",
-                        },
-                    },
-                );
-
-                if (response.ok) {
-                    const electionsData = await response.json(); // Convierte la respuesta a JSON
-                    console.log("Elections:", electionsData); // Muestra los datos en la consola
-                } else {
-                    console.error(
-                        "Failed to fetch elections:",
-                        response.statusText,
-                    );
-                }
-            } catch (error) {
-                console.error(
-                    "Error occurred while fetching elections:",
-                    error,
-                );
-            }
-        };
-
-        // Llama a la función para obtener las elecciones
-        getElections();
-    </script>
+    getElections();
+  </script>
 </BaseLayout>

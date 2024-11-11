@@ -8,114 +8,111 @@ const state = true;
 ---
 
 <BaseLayout pageTitle={pageTitle} state={state}>
-    <h1
-        class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
-    >
-        {pageTitle}
-    </h1>
+  <h1
+    class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+  >
+    {pageTitle}
+  </h1>
 
-    <form class="max-w-sm mx-auto" id="form-register">
-        <InputForm
-            nameLabel="Name"
-            inputType="text"
-            inputId="name"
-            inputPlaceholder="John"
-        />
-        <br />
-        <div class="grid md:grid-cols-2 md:gap-6">
-            <InputForm
-                nameLabel="Paternal name"
-                inputType="text"
-                inputId="paternalName"
-                inputPlaceholder="Doe"
-            />
-            <!-- poner una reglas de agregar un br cuando se cambie a modo movil -->
-            <InputForm
-                nameLabel="Maternal name"
-                inputType="text"
-                inputId="maternalName"
-                inputPlaceholder="Appleseed"
-            />
-        </div>
-        <br />
-        <InputForm
-            nameLabel="Date of Birth"
-            inputType="date"
-            inputId="date-of-birth"
-            inputPlaceholder="1990-01-01"
-        />
-        <br />
-        <InputForm
-            nameLabel="User"
-            inputType="text"
-            inputId="user"
-            inputPlaceholder="johndoe"
-        />
-        <br />
-        <InputForm
-            nameLabel="Email"
-            inputType="email"
-            inputId="email"
-            inputPlaceholder="email@email.com"
-        />
-        <br />
-        <InputForm
-            nameLabel="Password"
-            inputType="password"
-            inputId="password"
-            inputPlaceholder="********"
-        />
-        <br />
-        <br />
-        <div class="flex justify-center">
-            <ButtonForm textButton={pageTitle} />
-        </div>
-        <script>
-            const submitForm = async (event) => {
-                event.preventDefault();
+  <form class="max-w-sm mx-auto" id="form-register">
+    <InputForm
+      nameLabel="Name"
+      inputType="text"
+      inputId="name"
+      inputPlaceholder="John"
+    />
+    <br />
+    <div class="grid md:grid-cols-2 md:gap-6">
+      <InputForm
+        nameLabel="Paternal name"
+        inputType="text"
+        inputId="paternalName"
+        inputPlaceholder="Doe"
+      />
+      <!-- poner una reglas de agregar un br cuando se cambie a modo movil -->
+      <InputForm
+        nameLabel="Maternal name"
+        inputType="text"
+        inputId="maternalName"
+        inputPlaceholder="Appleseed"
+      />
+    </div>
+    <br />
+    <InputForm
+      nameLabel="Date of Birth"
+      inputType="date"
+      inputId="date-of-birth"
+      inputPlaceholder="1990-01-01"
+    />
+    <br />
+    <InputForm
+      nameLabel="User"
+      inputType="text"
+      inputId="user"
+      inputPlaceholder="johndoe"
+    />
+    <br />
+    <InputForm
+      nameLabel="Email"
+      inputType="email"
+      inputId="email"
+      inputPlaceholder="email@email.com"
+    />
+    <br />
+    <InputForm
+      nameLabel="Password"
+      inputType="password"
+      inputId="password"
+      inputPlaceholder="********"
+    />
+    <br />
+    <br />
+    <div class="flex justify-center">
+      <ButtonForm textButton={pageTitle} />
+    </div>
+    <script>
+      const submitForm = async (event) => {
+        event.preventDefault();
 
-                const form = event.target;
-                const name = form.elements.name.value;
-                const paternalName = form.elements.paternalName.value;
-                const maternalName = form.elements.maternalName.value;
-                const user = form.elements.user.value;
-                const password = form.elements.password.value;
+        const form = event.target;
+        const name = form.elements.name.value;
+        const paternalName = form.elements.paternalName.value;
+        const maternalName = form.elements.maternalName.value;
+        const user = form.elements.user.value;
+        const password = form.elements.password.value;
 
-                const data = {
-                    nombres: name,
-                    apellido_paterno: paternalName,
-                    apellido_materno: maternalName,
-                    usuario: user,
-                    password: password,
-                };
+        const data = {
+          nombres: name,
+          apellido_paterno: paternalName,
+          apellido_materno: maternalName,
+          usuario: user,
+          password: password,
+        };
 
-                try {
-                    const response = await fetch(
-                        "http://localhost:8000/elector/",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(data),
-                        },
-                    );
+        try {
+          const response = await fetch("http://localhost:8000/elector/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
 
-                    if (response.ok) {
-                        console.log("Registration successful");
-                        form.reset();
-                    } else {
-                        const errorData = await response.json();
-                        console.error("Registration failed:", errorData);
-                    }
-                } catch (error) {
-                    console.error("An error occurred:", error);
-                }
-            };
-            document.addEventListener("DOMContentLoaded", () => {
-                const form = document.getElementById("form-register");
-                form.addEventListener("submit", submitForm);
-            });
-        </script>
-    </form>
+          if (response.ok) {
+            console.log("Registration successful");
+            form.reset();
+          } else {
+            const errorData = await response.json();
+            console.error("Registration failed:", errorData);
+          }
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      };
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("form-register");
+        form.addEventListener("submit", submitForm);
+      });
+    </script>
+  </form>
 </BaseLayout>
