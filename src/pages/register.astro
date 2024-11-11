@@ -101,6 +101,7 @@ const state = true;
           if (response.ok) {
             console.log("Registration successful");
             form.reset();
+            window.location.href = "/";
           } else {
             const errorData = await response.json();
             console.error("Registration failed:", errorData);
