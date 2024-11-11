@@ -105,6 +105,7 @@ const state = true;
           } else {
             const errorData = await response.json();
             console.error("Registration failed:", errorData);
+            form.reset();
           }
         } catch (error) {
           console.error("An error occurred:", error);
