@@ -46,7 +46,6 @@ const listas = await getListas();
   </h1>
   <br />
   <div class="flex justify-center items-start min-h-screen space-x-4">
-    <!-- Lista de botones -->
     <ul
       class="flex flex-col space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400"
     >
@@ -91,7 +90,6 @@ const listas = await getListas();
       </li>
     </ul>
 
-    <!-- Contenido de la pestaña -->
     <div
       class="p-6 bg-gray-50 text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-3/4"
     >
@@ -207,7 +205,6 @@ const listas = await getListas();
       if (userData.type_user !== "admin") {
         window.location.href = "/login";
       }
-      // console.log("Admin data:", userData);
     };
 
     adminConfirm();
@@ -245,19 +242,19 @@ const listas = await getListas();
     }
 
     const getElections = async () => {
-      const token = sessionStorage.getItem("token"); // Asegúrate de tener el token en sessionStorage
+      const token = sessionStorage.getItem("token");
       try {
         const response = await fetch("http://localhost:8000/eleccion/", {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token en los headers
+            Authorization: `Bearer ${token}`,
             Accept: "application/json",
           },
         });
 
         if (response.ok) {
-          const electionsData = await response.json(); // Convierte la respuesta a JSON
-          console.log("Elections:", electionsData); // Muestra los datos en la consola
+          const electionsData = await response.json();
+          console.log("Elections:", electionsData);
         } else {
           console.error("Failed to fetch elections:", response.statusText);
         }
