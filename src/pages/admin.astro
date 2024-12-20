@@ -4,21 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const pageTitle = "Dashboard";
 const state = true;
 
-const getCandidates = async () => {
-  const response = await fetch("http://localhost:8000/candidato/", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-
-  if (response.ok) {
-    return await response.json();
-  } else {
-    return [];
-  }
-};
-
 const getListas = async () => {
   const response = await fetch("http://localhost:8000/lista/", {
     method: "GET",
@@ -34,7 +19,6 @@ const getListas = async () => {
   }
 };
 
-const candidates = await getCandidates();
 const listas = await getListas();
 ---
 
@@ -46,7 +30,6 @@ const listas = await getListas();
   </h1>
   <br />
   <div class="flex justify-center items-start min-h-screen space-x-4">
-    <!-- Lista de botones -->
     <ul
       class="flex flex-col space-y-4 text-sm font-medium text-gray-500 dark:text-gray-400"
     >
@@ -83,11 +66,12 @@ const listas = await getListas();
         </button>
       </li>
       <li>
-        <!-- <button
-                    class="p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
-                >
-                    Crear elecciones
-                </button> -->
+        <button
+          class="tablinks p-4 text-center inline-flex items-center px-4 py-3 rounded-lg hover:text-gray-900 bg-gray-50 hover:bg-gray-100 w-full dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white"
+          data-tab="createElection"
+        >
+          Crear elecciones
+        </button>
       </li>
     </ul>
 
@@ -126,36 +110,36 @@ const listas = await getListas();
               <th scope="col" class="px-6 py-3">Nombre de la Lista</th>
             </tr>
           </thead>
-          <tbody>
-            {
-              candidates.length > 0 ? (
-                candidates.map((candidate) => (
-                  // Pasa key como una prop separada y no dentro del objeto props
-                  <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                    <td class="px-6 py-4">{candidate.candidato.nombres}</td>
-                    <td class="px-6 py-4">
-                      {candidate.candidato.apellido_paterno}
-                    </td>
-                    <td class="px-6 py-4">
-                      {candidate.candidato.apellido_materno}
-                    </td>
-                    <td class="px-6 py-4">{candidate.nombre_lista}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colspan="4">No hay candidatos disponibles.</td>
-                </tr>
-              )
-            }
+          <tbody id="candidates-table-body">
+            <tr>
+              <td colspan="4" class="text-center">Cargando datos...</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div id="seeElections" class="tabcontent hidden">
-        <h1 class="text-gray-100">
-          Ver elecciones en general, finalizadas, activas, programadas (hacer un
-          filtro)
-        </h1>
+        <!-- <h1 class="text-gray-100"> -->
+        <!--   Ver elecciones en general, finalizadas, activas, programadas. -->
+        <!-- </h1> -->
+        <table
+          class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+        >
+          <thead
+            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          >
+            <tr>
+              <th scope="col" class="px-6 py-3">Fecha</th>
+              <th scope="col" class="px-6 py-3">Hora Inicio</th>
+              <th scope="col" class="px-6 py-3">Hora Fin</th>
+              <th scope="col" class="px-6 py-3">Descripción</th>
+            </tr>
+          </thead>
+          <tbody id="electios-table-body">
+            <tr>
+              <td colspan="4" class="text-center">Cargando datos...</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div
         id="seeList"
@@ -174,29 +158,18 @@ const listas = await getListas();
               <th scope="col" class="px-6 py-3">ID</th>
             </tr>
           </thead>
-          <tbody>
-            {
-              listas.length > 0 ? (
-                listas.map((lista) => (
-                  // Pasa key como una prop separada y no dentro del objeto props
-                  <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                    <td class="px-6 py-4">{lista.nombre}</td>
-                    <td class="px-6 py-4">{lista.id_eleccion}</td>
-                    <td class="px-6 py-4">{lista.propuesta}</td>
-                    <td class="px-6 py-4">{lista.id}</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colspan="4">No hay candidatos disponibles.</td>
-                </tr>
-              )
-            }
+          <tbody id="list-table-body">
+            <tr>
+              <td colspan="4" class="text-center">Cargando datos...</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <div id="seeVote" class="tabcontent hidden">
         <h1 class="text-gray-100">Ver votos</h1>
+      </div>
+      <div id="createElection" class="tabcontent hidden">
+        <h1 class="text-gray-100">Crear elección</h1>
       </div>
     </div>
   </div>
@@ -207,10 +180,148 @@ const listas = await getListas();
       if (userData.type_user !== "admin") {
         window.location.href = "/login";
       }
-      // console.log("Admin data:", userData);
     };
 
     adminConfirm();
+
+    const fetchCandidates = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/candidato/", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+        if (response.ok) {
+          return await response.json();
+        } else {
+          console.error("Error al obtener candidatos:", response.statusText);
+          return [];
+        }
+      } catch (error) {
+        console.error("Error en la solicitud:", error);
+        return [];
+      }
+    };
+
+    const fetchLists = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/lista/", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          return await response.json();
+        } else {
+          return [];
+        }
+      } catch (error) {
+        console.error("Error en la solicitud: ", error);
+        return [];
+      }
+    };
+
+    const fetchElections = async () => {
+      const token = sessionStorage.getItem("token");
+      try {
+        const response = await fetch("http://localhost:8000/eleccion/", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          return await response.json();
+        } else {
+          return [];
+        }
+      } catch (error) {
+        console.error("Error en la solicitud: ", error);
+        return [];
+      }
+    };
+
+    const renderCandidates = async () => {
+      const candidates = await fetchCandidates();
+      const tableBody = document.getElementById("candidates-table-body");
+
+      if (candidates.length > 0) {
+        tableBody.innerHTML = candidates
+          .map(
+            (candidate) => `
+            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <td class="px-6 py-4">${candidate.candidato.nombres}</td>
+              <td class="px-6 py-4">${candidate.candidato.apellido_paterno}</td>
+              <td class="px-6 py-4">${candidate.candidato.apellido_materno}</td>
+              <td class="px-6 py-4">${candidate.nombre_lista}</td>
+            </tr>
+          `,
+          )
+          .join("");
+      } else {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="text-center">No hay candidatos disponibles.</td>
+          </tr>
+        `;
+      }
+    };
+
+    const renderList = async () => {
+      const lists = await fetchLists();
+      const tableBody = document.getElementById("list-table-body");
+
+      if (lists.length > 0) {
+        tableBody.innerHTML = lists
+          .map(
+            (lista) =>
+              `<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"> 
+                    <td class="px-6 py-4">${lista.nombre}</td>
+                    <td class="px-6 py-4">${lista.id_eleccion}</td>
+                    <td class="px-6 py-4">${lista.propuesta}</td>
+                    <td class="px-6 py-4">${lista.id}</td> 
+            </tr>`,
+          )
+          .join("");
+      } else {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="text-center">No hay listas disponibles.</td>
+          </tr>
+        `;
+      }
+    };
+
+    const renderElections = async () => {
+      const elections = await fetchElections();
+      const tableBody = document.getElementById("electios-table-body");
+
+      if (elections.length > 0) {
+        tableBody.innerHTML = elections
+          .map(
+            (elec) => `
+            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+              <td class="px-6 py-4">${elec.fecha}</td>
+              <td class="px-6 py-4">${elec.hora_inicio}</td>
+              <td class="px-6 py-4">${elec.hora_fin}</td>
+              <td class="px-6 py-4">${elec.descripcion}</td>
+            </tr>
+          `,
+          )
+          .join("");
+      } else {
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="4" class="text-center">No hay elecciones disponibles.</td>
+          </tr>
+        `;
+      }
+    };
 
     document.addEventListener("DOMContentLoaded", function () {
       const tabButtons = document.querySelectorAll(".tablinks");
@@ -221,6 +332,10 @@ const listas = await getListas();
           openTab(tabName);
         });
       });
+
+      renderCandidates();
+      renderList();
+      renderElections();
     });
 
     function openTab(tabName) {
@@ -235,7 +350,6 @@ const listas = await getListas();
       }
 
       document.getElementById(tabName).classList.remove("hidden");
-      // Optionally, add active class to the button
       const activeButton = Array.from(tablinks).find(
         (link) => link.getAttribute("data-tab") === tabName,
       );
@@ -243,29 +357,5 @@ const listas = await getListas();
         activeButton.classList.add("focus:outline-none");
       }
     }
-
-    const getElections = async () => {
-      const token = sessionStorage.getItem("token"); // Asegúrate de tener el token en sessionStorage
-      try {
-        const response = await fetch("http://localhost:8000/eleccion/", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`, // Agrega el token en los headers
-            Accept: "application/json",
-          },
-        });
-
-        if (response.ok) {
-          const electionsData = await response.json(); // Convierte la respuesta a JSON
-          console.log("Elections:", electionsData); // Muestra los datos en la consola
-        } else {
-          console.error("Failed to fetch elections:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Error occurred while fetching elections:", error);
-      }
-    };
-
-    getElections();
   </script>
 </BaseLayout>
