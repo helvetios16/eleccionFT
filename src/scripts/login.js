@@ -1,4 +1,3 @@
-// Función para manejar el envío del formulario de login
 const submitForm = async (event) => {
   event.preventDefault();
 
@@ -55,7 +54,6 @@ const submitForm = async (event) => {
   }
 };
 
-// Función para obtener los datos del usuario actual
 const getCurrentUser = async (token) => {
   try {
     const response = await fetch(
@@ -82,7 +80,6 @@ const getCurrentUser = async (token) => {
   }
 };
 
-// Iniciar la escucha del evento submit cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("form-login");
   if (form) {

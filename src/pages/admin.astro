@@ -3,23 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "Dashboard";
 const state = true;
-
-const getListas = async () => {
-  const response = await fetch("http://localhost:8000/lista/", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-
-  if (response.ok) {
-    return await response.json();
-  } else {
-    return [];
-  }
-};
-
-const listas = await getListas();
 ---
 
 <BaseLayout pageTitle={pageTitle} state={state}>
@@ -75,7 +58,6 @@ const listas = await getListas();
       </li>
     </ul>
 
-    <!-- Contenido de la pestaña -->
     <div
       class="p-6 bg-gray-50 text-gray-500 dark:text-gray-400 dark:bg-gray-800 rounded-lg w-3/4"
     >

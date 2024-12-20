@@ -10,47 +10,47 @@ const state = false;
   >
     {pageTitle}
   </h1>
-  <div
-    class="w-full max-w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-  >
-    <div class="flex flex-col items-center mb-4 mt-4">
-      <svg
-        class="w-12 h-12 text-gray-500 dark:text-gray-400 mb-2"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="size-6"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-        ></path>
-      </svg>
+  <div class="flex justify-center items-center">
+    <div
+      class="w-full max-w-64 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4"
+    >
+      <div class="flex flex-col items-center mb-4 mt-4">
+        <svg
+          class="w-12 h-12 text-gray-500 dark:text-gray-400 mb-2"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="size-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+          ></path>
+        </svg>
 
-      <h5
-        id="name"
-        class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
-      >
-        Load ...
-      </h5>
-      <span id="surnames" class="text-sm text-gray-500 dark:text-gray-400"
-        >Load ...</span
-      >
+        <h5
+          id="name"
+          class="mb-1 text-xl font-medium text-gray-900 dark:text-white"
+        >
+          Load ...
+        </h5>
+        <span id="surnames" class="text-sm text-gray-500 dark:text-gray-400"
+          >Load ...</span
+        >
+      </div>
     </div>
   </div>
 
   <script>
-    const userInfo = JSON.parse(sessionStorage.getItem("userInfo")); // Obtener la información del usuario de sessionStorage
-    // console.log("Elector ID:", userInfo); // Asegúrate de que el ID es correcto
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
 
     const electorData = async () => {
       if (!userInfo) {
-        window.location.href = "/login"; // Redirigir a la página de inicio de sesión si no hay datos
+        window.location.href = "/login";
       }
-      // console.log("Elector data:", userInfo);
       document.getElementById("name").textContent = userInfo.persona.nombres;
       document.getElementById("surnames").textContent =
         userInfo.persona.apellido_paterno +
