@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Vote";
+const state = false;
+---
+
+<BaseLayout pageTitle={pageTitle} state={state}>
+  <h1
+    class="text-center pt-16 pb-8 mb-4 text-4xl text-gray-900 dark:text-white"
+  >
+    {pageTitle}
+  </h1>
+  <script>
+    const userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+
+    const enterAccess = async () => {
+      if (!userInfo) {
+        window.location.href = "/";
+      }
+    };
+
+    enterAccess();
+  </script>
+</BaseLayout>
