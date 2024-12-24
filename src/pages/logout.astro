@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "Log out";
+const state = false;
+---
+
+<BaseLayout pageTitle={pageTitle} state={state}>
+  <script>
+    const out = () => {
+      const user = JSON.parse(sessionStorage.getItem("userInfo"));
+
+      if (user) {
+        sessionStorage.removeItem("userInfo");
+      }
+
+      window.location.href = "/";
+    };
+
+    out();
+  </script>
+</BaseLayout>
